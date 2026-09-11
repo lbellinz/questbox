@@ -2,7 +2,7 @@
 
 **Retro RPG textbox & GIF maker.** Create animated retro‑JRPG dialogue boxes — typewriter text, colored words, a character name, and a final *Yes / No* menu with a selection arrow — then export them as a looping **GIF** or a **PNG**, entirely in your browser.
 
-☕ [Buy me a coffee](https://buymeacoffee.com/lbellinz) · 🌐 Live demo: `https://<your-username>.github.io/questbox/`
+🌐 **Live:** [lbellinz.github.io/questbox](https://lbellinz.github.io/questbox/) · ☕ [Buy me a coffee](https://buymeacoffee.com/lbellinz)
 
 ![QuestBox preview](preview.gif)
 
@@ -31,7 +31,7 @@ Open `index.html` in any modern browser — or publish it (below) and use the li
 
 1. Push this repository to GitHub.
 2. Repository **Settings → Pages → Build and deployment → Source: Deploy from a branch**, branch `main`, folder `/ (root)`.
-3. Your tool goes live at `https://<your-username>.github.io/questbox/`.
+3. Your tool goes live at [`https://lbellinz.github.io/questbox/`](https://lbellinz.github.io/questbox/).
 
 Because everything is inlined in one file, it works correctly from a project sub‑path with no extra configuration.
 
