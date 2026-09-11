@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QuestBox — Retro RPG Textbox &amp; GIF Maker</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+  <h1>🕹️ QuestBox <span style="color:var(--muted);font-weight:400" data-i18n="phase"></span></h1>
+  <span class="tag">100% client-side</span>
+  <span class="tag" data-i18n="tag_gif"></span>
+  <div class="spacer"></div>
+  <span class="foot" id="fontstatus"></span>
+  <div class="langsw"><button id="lang-en" class="active">EN</button><button id="lang-it">IT</button></div>
+</header>
+
+<div class="wrap">
+  <div class="controls">
+    <!-- PRESETS -->
+    <details class="group" open>
+      <summary data-i18n="g_preset"></summary>
+      <div class="body"><div class="presetgrid" id="presetgrid"></div></div>
+    </details>
+
+    <!-- BOXES -->
+    <details class="group" open>
+      <summary data-i18n="g_boxes"></summary>
+      <div class="body">
+        <div class="boxlist" id="boxlist"></div>
+        <button class="btnsm full" id="btn-addbox" data-i18n="b_addbox"></button>
+      </div>
+    </details>
+
+    <!-- EDIT BOX -->
+    <details class="group" open>
+      <summary data-i18n="g_editbox"></summary>
+      <div class="body">
+        <div class="field"><label for="c-name" data-i18n="l_name"></label><input type="text" id="c-name" data-i18n-ph="ph_name"></div>
+        <div class="field">
+          <label for="c-text" data-i18n="l_text"></label>
+          <textarea id="c-text"></textarea>
+          <div class="swatches" id="swatches"></div>
+          <div class="hint" data-i18n="hint_color"></div>
+        </div>
+        <div class="field check"><input type="checkbox" id="c-menu-on"><label for="c-menu-on" style="margin:0" data-i18n="l_menu"></label></div>
+        <div id="menu-fields" hidden>
+          <div class="field"><label for="c-menu-opts" data-i18n="l_menuopts"></label><textarea id="c-menu-opts" style="min-height:52px"></textarea></div>
+          <div class="field"><label for="c-menu-sel" data-i18n="l_menusel"></label><select id="c-menu-sel"></select></div>
+        </div>
+      </div>
+    </details>
+
+    <!-- BACKGROUND / PHOTO -->
+    <details class="group">
+      <summary data-i18n="g_bg"></summary>
+      <div class="body">
+        <div class="field">
+          <label for="c-bgmode" data-i18n="l_bgmode"></label>
+          <select id="c-bgmode"><option value="color" data-i18n="opt_color"></option><option value="image" data-i18n="opt_image"></option></select>
+        </div>
+        <div id="bg-image-fields" hidden>
+          <div class="field"><label for="c-bgimg" data-i18n="l_bgimg"></label><input type="file" id="c-bgimg" accept="image/*"><button class="btnsm full" id="btn-bgremove" data-i18n="b_bgremove" style="margin-top:8px"></button></div>
+          <div class="field"><label for="c-outw" data-i18n="l_outw"></label><div class="row"><input type="range" id="c-outw" min="320" max="1024" step="16"><span class="valout" id="v-outw"></span></div></div>
+          <div class="field"><label for="c-boxpos" data-i18n="l_boxpos"></label><select id="c-boxpos"><option value="bottom" data-i18n="pos_bottom"></option><option value="center" data-i18n="pos_center"></option><option value="top" data-i18n="pos_top"></option></select></div>
+          <div class="hint" data-i18n="hint_photo"></div>
+        </div>
+      </div>
+    </details>
+
+    <!-- TIMING -->
+    <details class="group">
+      <summary data-i18n="g_timing"></summary>
+      <div class="body">
+        <div class="field"><label for="c-speed" data-i18n="l_speed"></label><div class="row"><input type="range" id="c-speed" min="20" max="150" step="10"><span class="valout" id="v-speed"></span></div></div>
+        <div class="field"><label for="c-punct" data-i18n="l_punct"></label><div class="row"><input type="range" id="c-punct" min="0" max="800" step="20"><span class="valout" id="v-punct"></span></div></div>
+        <div class="field"><label for="c-start" data-i18n="l_start"></label><div class="row"><input type="range" id="c-start" min="0" max="1500" step="50"><span class="valout" id="v-start"></span></div></div>
+        <div class="field"><label for="c-read" data-i18n="l_read"></label><div class="row"><input type="range" id="c-read" min="0" max="5000" step="100"><span class="valout" id="v-read"></span></div></div>
+        <div class="field"><label for="c-between" data-i18n="l_between"></label><div class="row"><input type="range" id="c-between" min="0" max="3000" step="50"><span class="valout" id="v-between"></span></div></div>
+        <div class="field"><label for="c-menudur" data-i18n="l_menudur"></label><div class="row"><input type="range" id="c-menudur" min="0" max="6000" step="100"><span class="valout" id="v-menudur"></span></div></div>
+        <div class="field check"><input type="checkbox" id="c-arrow"><label for="c-arrow" style="margin:0" data-i18n="l_arrow"></label></div>
+      </div>
+    </details>
+
+    <!-- STYLE -->
+    <details class="group">
+      <summary data-i18n="g_style"></summary>
+      <div class="body">
+        <div class="field"><label for="c-fontfamily" data-i18n="l_font"></label><select id="c-fontfamily"></select></div>
+        <div class="field"><label for="c-width" data-i18n="l_width"></label><div class="row"><input type="range" id="c-width" min="240" max="760" step="10"><span class="valout" id="v-width"></span></div></div>
+        <div class="field"><label for="c-fontsize" data-i18n="l_fontsize"></label><div class="row"><input type="range" id="c-fontsize" min="12" max="40" step="1"><span class="valout" id="v-fontsize"></span></div></div>
+        <div class="field"><label for="c-radius" data-i18n="l_radius"></label><div class="row"><input type="range" id="c-radius" min="0" max="40" step="1"><span class="valout" id="v-radius"></span></div></div>
+        <div class="field"><label for="c-border" data-i18n="l_border"></label><div class="row"><input type="range" id="c-border" min="0" max="10" step="1"><span class="valout" id="v-border"></span></div></div>
+      </div>
+    </details>
+
+    <!-- COLORS -->
+    <details class="group">
+      <summary data-i18n="g_colors"></summary>
+      <div class="body colorgrid">
+        <div class="field"><label for="c-col-backdrop" data-i18n="c_backdrop"></label><input type="color" id="c-col-backdrop"></div>
+        <div class="field"><label for="c-col-boxBg" data-i18n="c_box"></label><input type="color" id="c-col-boxBg"></div>
+        <div class="field"><label for="c-col-borderColor" data-i18n="c_border"></label><input type="color" id="c-col-borderColor"></div>
+        <div class="field"><label for="c-col-textColor" data-i18n="c_text"></label><input type="color" id="c-col-textColor"></div>
+        <div class="field"><label for="c-col-nameColor" data-i18n="c_name"></label><input type="color" id="c-col-nameColor"></div>
+        <div class="field"><label for="c-col-arrowColor" data-i18n="c_arrow"></label><input type="color" id="c-col-arrowColor"></div>
+        <div class="field"><label for="c-col-selectColor" data-i18n="c_select"></label><input type="color" id="c-col-selectColor"></div>
+      </div>
+    </details>
+  </div>
+
+  <!-- STAGE -->
+  <div class="stage">
+    <div class="previewbox"><canvas id="preview"></canvas></div>
+    <div class="scrub"><label data-i18n="l_frame"></label><input type="range" id="scrub" min="0" max="0" step="1" value="0"><span class="valout" id="scrub-val">0 / 0</span></div>
+    <div class="actions">
+      <button class="btn" id="btn-play"></button>
+      <button class="btn primary" id="btn-gif" data-i18n="b_gif"></button>
+      <button class="btn" id="btn-png" data-i18n="b_png"></button>
+      <div class="progress" id="progress"><i></i></div>
+    </div>
+    <div class="result" id="result"><h3 id="result-title"></h3><div class="imgwrap"><img id="result-img" alt="export result"></div><div class="rhint" id="result-hint"></div></div>
+    <div class="foot" data-i18n="foot" data-i18n-html="1"></div>
+    <div class="foot" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px;margin-top:2px">
+      <a href="https://buymeacoffee.com/lbellinz" target="_blank" rel="noopener">☕ <span data-i18n="coffee"></span></a>
+      <span style="opacity:.4">·</span>
+      <span data-i18n="oss"></span>
+    </div>
+  </div>
+</div>
+
+<script src="js/vendor/gifenc.js"></script>
+<script src="js/fonts.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
