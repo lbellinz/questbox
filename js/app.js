@@ -29,11 +29,12 @@
       l_start:"Pause before each box (empty) — ms", l_read:"Reading pause after text — ms",
       l_between:"Pause between boxes — ms", l_menudur:"Final menu duration — ms",
       l_arrow:'Blinking "continue" arrow ▼',
-      g_style:"Box style", l_font:"Font", l_width:"Box width — px", l_fontsize:"Font size — px", l_radius:"Corner radius — px", l_border:"Border width — px",
+      g_style:"Box style", l_font:"Font", l_width:"Box width — px", l_boxheight:"Box height — px", l_fontsize:"Font size — px", l_radius:"Corner radius — px", l_border:"Border width — px",
       g_colors:"Colors", c_backdrop:"Background", c_box:"Box", c_border:"Border", c_text:"Text", c_name:"Name", c_arrow:"Cont. arrow", c_select:"Menu arrow",
       l_frame:"Frame", b_play:"▶ Play", b_pause:"⏸ Pause",
       b_gif:"⬇ Export GIF", b_gif_busy:"Rendering…", b_png:"⬇ Export PNG (frame)",
-      r_gif_ok:"GIF generated ✓", r_png_ok:"PNG generated ✓", r_err:"Export error",
+      b_mp4:"⬇ Export MP4", b_vid_busy:"Encoding…", l_vidsize:"Video:", asp_native:"Native",
+      r_gif_ok:"GIF generated ✓", r_png_ok:"PNG generated ✓", r_mp4_ok:"MP4 generated ✓", r_webm_ok:"WebM generated ✓ (this browser can't make MP4)", r_vid_hint:"{w}×{h} · {s}s · loops automatically in Stories.", r_err:"Export error",
       r_gif_hint:'If the download does not start, right-click the image → "Save image". {n} frames · {kb} KB',
       r_png_hint:"Current frame (full color). {w}×{h} px.",
       foot:'Presets, multiple free fonts and photo overlay — all rendered by the <b>same engine</b> for preview and GIF. '
@@ -60,11 +61,12 @@
       l_start:"Pausa prima di ogni box (vuoto) — ms", l_read:"Pausa di lettura dopo il testo — ms",
       l_between:"Pausa tra un box e l'altro — ms", l_menudur:"Durata schermata menù — ms",
       l_arrow:'Freccia "continua" ▼ lampeggiante',
-      g_style:"Stile box", l_font:"Font", l_width:"Larghezza box — px", l_fontsize:"Dimensione font — px", l_radius:"Raggio angoli — px", l_border:"Spessore bordo — px",
+      g_style:"Stile box", l_font:"Font", l_width:"Larghezza box — px", l_boxheight:"Altezza box — px", l_fontsize:"Dimensione font — px", l_radius:"Raggio angoli — px", l_border:"Spessore bordo — px",
       g_colors:"Colori", c_backdrop:"Sfondo", c_box:"Box", c_border:"Bordo", c_text:"Testo", c_name:"Nome", c_arrow:"Freccia cont.", c_select:"Freccia menù",
       l_frame:"Frame", b_play:"▶ Play", b_pause:"⏸ Pausa",
       b_gif:"⬇ Esporta GIF", b_gif_busy:"Genero…", b_png:"⬇ Esporta PNG (frame)",
-      r_gif_ok:"GIF generata ✓", r_png_ok:"PNG generato ✓", r_err:"Errore export",
+      b_mp4:"⬇ Esporta MP4", b_vid_busy:"Codifico…", l_vidsize:"Video:", asp_native:"Nativo",
+      r_gif_ok:"GIF generata ✓", r_png_ok:"PNG generato ✓", r_mp4_ok:"MP4 generato ✓", r_webm_ok:"WebM generato ✓ (questo browser non genera MP4)", r_vid_hint:"{w}×{h} · {s}s · va in loop nelle Stories.", r_err:"Errore export",
       r_gif_hint:'Se il download non parte, clic destro sull\'immagine → "Salva immagine". {n} frame · {kb} KB',
       r_png_hint:"Frame corrente (colore pieno). {w}×{h} px.",
       foot:'Preset, più font liberi e overlay su foto — tutto reso dallo <b>stesso motore</b> per anteprima e GIF. '
@@ -107,9 +109,10 @@
       { name:"Player 1", text:"Take a mushroom?", spans:[], menu:{ options:["Yes","No"], selected:0 } }
     ],
     timing:{ msPerChar:45, punctPause:300, startPause:200, readPause:1400, betweenPause:250, menuDuration:2600 },
-    style:{ fontFamily:"JetBrains Mono", boxWidth:520, fontSize:22, lineSpacing:1.4, cornerRadius:14, borderWidth:3, margin:14, innerPad:18 },
+    style:{ fontFamily:"JetBrains Mono", boxWidth:520, boxHeight:175, fontSize:22, lineSpacing:1.4, cornerRadius:14, borderWidth:3, margin:14, innerPad:18 },
     colors:{ backdrop:"#14151a", boxBg:"#0b0e18", borderColor:"#e08a2b", nameColor:"#e8a33d", textColor:"#ffffff", arrowColor:"#e8a33d", selectColor:"#e5533b" },
     bg:{ mode:"color", img:null, outputWidth:640, anchor:"bottom" },
+    video:{ aspect:"native", fps:30 },
     showArrow:true
   };
   var sel=0;
@@ -159,7 +162,7 @@
       boxesL.push({hasName:hasName,nameRowH:nameRowH,lines:lines,flat:flat,total:flat.length,hasMenu:hasMenu,menuGap:menuGap,menuRows:menuRows});
       if(contentH>maxContentH) maxContentH=contentH;
     }
-    var boxH=st.innerPad*2+maxContentH;
+    var boxH=st.boxHeight; // fixed height — independent of font size / content (font has its own control)
     var canvasW,canvasH,boxX,boxTop;
     if(bg.mode==='image'){
       canvasW=bg.outputWidth;
@@ -181,13 +184,13 @@
   function drawRight(ctx,x,y,h,color){ ctx.fillStyle=color; ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x,y+h); ctx.lineTo(x+h*0.72,y+h/2); ctx.closePath(); ctx.fill(); }
   function drawBackdrop(ctx,GL){
     var bg=project.bg;
-    if(bg.mode==='image'&&bg.img){ var img=bg.img; var s=Math.max(GL.canvasW/img.width,GL.canvasH/img.height); var dw=img.width*s,dh=img.height*s; ctx.drawImage(img,(GL.canvasW-dw)/2,(GL.canvasH-dh)/2,dw,dh); }
+    if(bg.mode==='image'&&bg.img){ ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality='high'; var img=bg.img; var s=Math.max(GL.canvasW/img.width,GL.canvasH/img.height); var dw=img.width*s,dh=img.height*s; ctx.drawImage(img,(GL.canvasW-dw)/2,(GL.canvasH-dh)/2,dw,dh); }
     else { ctx.fillStyle=project.colors.backdrop; ctx.fillRect(0,0,GL.canvasW,GL.canvasH); }
   }
   function drawBox(ctx,GL,idx,visible,opts){
     opts=opts||{}; var st=project.style, cl=project.colors, B=GL.boxes[idx], b=project.boxes[idx];
+    if(opts.skipBackdrop){ ctx.clearRect(0,0,GL.canvasW,GL.canvasH); } else { drawBackdrop(ctx,GL); }
     ctx.imageSmoothingEnabled=false;
-    drawBackdrop(ctx,GL);
     roundRect(ctx,GL.boxX,GL.boxTop,GL.boxW,GL.boxH,st.cornerRadius); ctx.fillStyle=cl.boxBg; ctx.fill();
     if(st.borderWidth>0){
       ctx.lineWidth=2; ctx.strokeStyle=lighten(cl.boxBg,30);
@@ -225,7 +228,7 @@
   var pcanvas=document.getElementById('preview'), pctx=pcanvas.getContext('2d');
   var GL=null,timeline=null,pvIdx=0,pvTimer=null,paused=false;
   var scrubEl=document.getElementById('scrub'), scrubVal=document.getElementById('scrub-val');
-  function resizePreview(){ pcanvas.width=GL.canvasW; pcanvas.height=GL.canvasH; var maxw=Math.min(GL.canvasW*2,720); var scale=maxw/GL.canvasW; if(GL.canvasW>=560) scale=Math.min(scale,1.3); pcanvas.style.width=Math.round(GL.canvasW*scale)+'px'; }
+  function resizePreview(){ pcanvas.width=GL.canvasW; pcanvas.height=GL.canvasH; var maxw=Math.min(GL.canvasW*2,720); var scale=maxw/GL.canvasW; if(GL.canvasW>=560) scale=Math.min(scale,1.3); pcanvas.style.width=Math.round(GL.canvasW*scale)+'px'; pcanvas.classList.toggle('smooth', project.bg.mode==='image'); }
   function drawIdx(idx){ var f=timeline[idx]; if(!f) return; drawBox(pctx,GL,f.i,f.v,frameOpts(f)); scrubEl.value=idx; scrubVal.textContent=(idx+1)+' / '+timeline.length; }
   function rebuild(){ GL=computeGlobalLayout(); timeline=buildSequence(GL); resizePreview(); scrubEl.max=Math.max(0,timeline.length-1); if(paused){ if(pvIdx>=timeline.length) pvIdx=timeline.length-1; drawIdx(pvIdx); } else restartPreview(); }
   function restartPreview(){ clearTimeout(pvTimer); pvIdx=0; stepPreview(); }
@@ -239,7 +242,79 @@
   var resultEl=document.getElementById('result'),resultImg=document.getElementById('result-img'),resultTitle=document.getElementById('result-title'),resultHint=document.getElementById('result-hint');
   function setProgress(p){ progressEl.classList.toggle('on',p>=0&&p<1); progressBar.style.width=Math.round(Math.max(0,Math.min(1,p))*100)+'%'; }
   function triggerDownload(blob,fn){ var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download=fn; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(url);},4000); return url; }
-  function showResult(title,url,hint){ resultTitle.textContent=title; resultImg.src=url; resultHint.textContent=hint||''; resultEl.classList.add('on'); }
+  /* ---- VIDEO EXPORT (MP4 via WebCodecs, WebM fallback) ---- */
+  var VSS=2; // supersample factor for the composited box layer (crisper text when scaled up)
+  function videoDims(GL){ var a=project.video.aspect;
+    if(a==='9:16') return {w:1080,h:1920}; if(a==='1:1') return {w:1080,h:1080};
+    if(a==='4:5') return {w:1080,h:1350}; if(a==='16:9') return {w:1920,h:1080};
+    return {w:GL.canvasW,h:GL.canvasH}; }
+  function makeFrameAt(tl,total){ var cum=[],acc=0; for(var i=0;i<tl.length;i++){ cum.push(acc); acc+=tl[i].d; }
+    return function(ms){ ms=((ms%total)+total)%total; var lo=0,hi=tl.length-1,ans=0; while(lo<=hi){ var mid=(lo+hi)>>1; if(cum[mid]<=ms){ ans=mid; lo=mid+1; } else hi=mid-1; } return ans; }; }
+  function composeVideoFrame(tctx,W,H,GL,f,vbox,vbctx){
+    if(project.video.aspect==='native'){ drawBox(tctx,GL,f.i,f.v,frameOpts(f)); return; }
+    // background fills the whole frame (no crop / no bars)
+    tctx.imageSmoothingEnabled=true; tctx.imageSmoothingQuality='high';
+    if(project.bg.mode==='image'&&project.bg.img){ var img=project.bg.img; var s=Math.max(W/img.width,H/img.height); var dw=img.width*s,dh=img.height*s; tctx.drawImage(img,(W-dw)/2,(H-dh)/2,dw,dh); }
+    else { tctx.fillStyle=project.colors.backdrop; tctx.fillRect(0,0,W,H); }
+    // box drawn on its own transparent (supersampled) layer, then placed
+    var o=frameOpts(f); o.skipBackdrop=true; drawBox(vbctx,GL,f.i,f.v,o);
+    var margin=Math.round(W*0.055), destW=W-2*margin, scale=destW/GL.boxW, destH=GL.boxH*scale, destX=margin;
+    var anchor=project.bg.anchor||'bottom', vmargin=Math.round(H*0.06), destY;
+    if(anchor==='top') destY=vmargin; else if(anchor==='center') destY=Math.round((H-destH)/2); else destY=H-vmargin-destH;
+    destY=Math.max(vmargin, Math.min(destY, H-vmargin-destH));
+    tctx.imageSmoothingEnabled=true;
+    tctx.drawImage(vbox, GL.boxX*VSS,GL.boxTop*VSS,GL.boxW*VSS,GL.boxH*VSS, destX,destY,destW,destH);
+  }
+  async function pickAvc(W,H,fps){ if(!('VideoEncoder' in window)||!VideoEncoder.isConfigSupported) return null;
+    var cands=['avc1.640028','avc1.4d0028','avc1.42e01f','avc1.42001f'];
+    for(var i=0;i<cands.length;i++){ try{ var s=await VideoEncoder.isConfigSupported({codec:cands[i],width:W,height:H,bitrate:6e6,framerate:fps}); if(s&&s.supported) return cands[i]; }catch(e){} }
+    return null; }
+  async function exportVideo(){
+    var btn=document.getElementById('btn-mp4'); btn.disabled=true; btn.textContent=t('b_vid_busy');
+    try{
+      var L=computeGlobalLayout(), tl=buildSequence(L); if(!tl.length) return;
+      var d=videoDims(L), W=d.w-(d.w%2), H=d.h-(d.h%2), fps=project.video.fps||30;
+      var total=0; for(var i=0;i<tl.length;i++) total+=tl[i].d;
+      var frameAt=makeFrameAt(tl,total), nFrames=Math.max(1,Math.round(total/1000*fps));
+      var tcanvas=document.createElement('canvas'); tcanvas.width=W; tcanvas.height=H; var tctx=tcanvas.getContext('2d');
+      var vbox=null,vbctx=null; if(project.video.aspect!=='native'){ vbox=document.createElement('canvas'); vbox.width=L.canvasW*VSS; vbox.height=L.canvasH*VSS; vbctx=vbox.getContext('2d'); vbctx.setTransform(VSS,0,0,VSS,0,0); }
+      var codec=await pickAvc(W,H,fps);
+      if(!codec){ await exportWebM(L,tl,W,H,fps,total,frameAt,tcanvas,tctx,vbox,vbctx); return; }
+      var muxer=new Mp4Muxer.Muxer({ target:new Mp4Muxer.ArrayBufferTarget(), video:{codec:'avc',width:W,height:H}, fastStart:'in-memory' });
+      var encoder=new VideoEncoder({ output:function(chunk,meta){ muxer.addVideoChunk(chunk,meta); }, error:function(e){ console.error(e); } });
+      encoder.configure({ codec:codec, width:W, height:H, bitrate:6e6, framerate:fps });
+      var dtUs=1e6/fps;
+      for(var n=0;n<nFrames;n++){ var f=tl[frameAt(n*1000/fps)];
+        composeVideoFrame(tctx,W,H,L,f,vbox,vbctx);
+        var vf=new VideoFrame(tcanvas,{timestamp:Math.round(n*dtUs),duration:Math.round(dtUs)});
+        encoder.encode(vf,{keyFrame:(n%(fps*2)===0)}); vf.close();
+        while(encoder.encodeQueueSize>10){ await new Promise(function(r){ setTimeout(r,4); }); }
+        if(n%3===0){ setProgress(n/nFrames); await new Promise(function(r){ setTimeout(r,0); }); }
+      }
+      await encoder.flush(); muxer.finalize();
+      var blob=new Blob([muxer.target.buffer],{type:'video/mp4'});
+      var url=triggerDownload(blob,'questbox.mp4');
+      showVideoResult(t('r_mp4_ok'),url,t('r_vid_hint',{w:W,h:H,s:(total/1000).toFixed(1)}));
+    }catch(err){ showError(err); }
+    finally{ setProgress(1); setTimeout(function(){ setProgress(-1); },400); btn.disabled=false; btn.textContent=t('b_mp4'); }
+  }
+  async function exportWebM(L,tl,W,H,fps,total,frameAt,tcanvas,tctx,vbox,vbctx){
+    var mimes=['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'], mime=null;
+    for(var i=0;i<mimes.length;i++){ if(window.MediaRecorder&&MediaRecorder.isTypeSupported(mimes[i])){ mime=mimes[i]; break; } }
+    if(!mime) throw new Error('Video export is not supported by this browser.');
+    var stream=tcanvas.captureStream(0), track=stream.getVideoTracks()[0];
+    var rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:6e6}), chunks=[];
+    rec.ondataavailable=function(e){ if(e.data&&e.data.size) chunks.push(e.data); };
+    var done=new Promise(function(res){ rec.onstop=res; });
+    rec.start();
+    for(var j=0;j<tl.length;j++){ var f=tl[j]; composeVideoFrame(tctx,W,H,L,f,vbox,vbctx); if(track.requestFrame) track.requestFrame(); setProgress(j/tl.length); await new Promise(function(r){ setTimeout(r,Math.max(20,f.d)); }); }
+    rec.stop(); await done;
+    var blob=new Blob(chunks,{type:'video/webm'}); var url=triggerDownload(blob,'questbox.webm');
+    showVideoResult(t('r_webm_ok'),url,t('r_vid_hint',{w:W,h:H,s:(total/1000).toFixed(1)}));
+  }
+  function showVideoResult(title,url,hint){ var v=document.getElementById('result-video'); resultImg.hidden=true; resultImg.removeAttribute('src'); v.hidden=false; v.src=url; resultTitle.textContent=title; resultHint.textContent=hint||''; resultEl.classList.add('on'); }
+
+  function showResult(title,url,hint){ var v=document.getElementById('result-video'); if(v){ v.hidden=true; v.removeAttribute('src'); } resultImg.hidden=false; resultImg.src=url; resultTitle.textContent=title; resultHint.textContent=hint||''; resultEl.classList.add('on'); }
   function showError(err){ resultTitle.textContent=t('r_err'); resultHint.textContent=(err&&err.message)?err.message:String(err); resultImg.removeAttribute('src'); resultEl.classList.add('on'); console.error(err); }
   function buildGlobalPalette(L,w,h){ var bufs=[],tot=0; for(var i=0;i<L.boxes.length;i++){ drawBox(ectx,L,i,L.boxes[i].total,{menuShow:true,arrowOn:true,contArrow:true}); var d=ectx.getImageData(0,0,w,h).data; var u=new Uint8Array(d.length); u.set(d); bufs.push(u); tot+=u.length; } var big=new Uint8Array(tot),off=0; for(var j=0;j<bufs.length;j++){ big.set(bufs[j],off); off+=bufs[j].length; } return gifenc.quantize(big,255,{format:'rgb444'}); } /* 255: leave index 255 for transparency */
   async function exportGif(){ var btn=document.getElementById('btn-gif'); btn.disabled=true; btn.textContent=t('b_gif_busy');
@@ -303,7 +378,7 @@
   function setRange(id,val,out,unit){ var el=document.getElementById(id),o=document.getElementById(out); if(el) el.value=val; if(o) o.textContent=val+(unit||''); }
   function syncStyleControls(){
     var st=project.style;
-    setRange('c-width',st.boxWidth,'v-width',' px'); setRange('c-fontsize',st.fontSize,'v-fontsize',' px');
+    setRange('c-width',st.boxWidth,'v-width',' px'); setRange('c-boxheight',st.boxHeight,'v-boxheight',' px'); setRange('c-fontsize',st.fontSize,'v-fontsize',' px');
     setRange('c-radius',st.cornerRadius,'v-radius',' px'); setRange('c-border',st.borderWidth,'v-border',' px');
     var ff=document.getElementById('c-fontfamily'); if(ff) ff.value=st.fontFamily;
   }
@@ -345,6 +420,7 @@
     var arrowEl=document.getElementById('c-arrow'); arrowEl.checked=project.showArrow; arrowEl.addEventListener('change',function(){ project.showArrow=arrowEl.checked; rebuild(); });
 
     bindRange('c-width',project.style,'boxWidth','v-width',' px',true);
+    bindRange('c-boxheight',project.style,'boxHeight','v-boxheight',' px',true);
     bindRange('c-fontsize',project.style,'fontSize','v-fontsize',' px',true);
     bindRange('c-radius',project.style,'cornerRadius','v-radius',' px',true);
     bindRange('c-border',project.style,'borderWidth','v-border',' px',true);
@@ -354,6 +430,8 @@
     document.getElementById('btn-play').addEventListener('click',function(){ setPaused(!paused); });
     document.getElementById('btn-gif').addEventListener('click',exportGif);
     document.getElementById('btn-png').addEventListener('click',exportPng);
+    document.getElementById('btn-mp4').addEventListener('click',exportVideo);
+    var vasp=document.getElementById('c-vidaspect'); vasp.value=project.video.aspect; vasp.addEventListener('change',function(){ project.video.aspect=vasp.value; });
     scrubEl.addEventListener('input',function(){ setPaused(true); pvIdx=parseInt(scrubEl.value,10)||0; drawIdx(pvIdx); });
     document.getElementById('lang-en').addEventListener('click',function(){ lang='en'; applyI18n(); });
     document.getElementById('lang-it').addEventListener('click',function(){ lang='it'; applyI18n(); });

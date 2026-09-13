@@ -62,6 +62,7 @@
   .stage{padding:22px; display:flex; flex-direction:column; gap:16px; min-width:0}
   .previewbox{background:linear-gradient(45deg,#0c0d13 25%,transparent 25%,transparent 75%,#0c0d13 75%),linear-gradient(45deg,#0c0d13 25%,#131521 25%,#131521 75%,#0c0d13 75%); background-size:24px 24px; background-position:0 0,12px 12px; border:1px solid var(--line); border-radius:var(--radius); padding:22px; display:flex; justify-content:center; align-items:center; min-height:220px}
   #preview{image-rendering:pixelated; max-width:100%; height:auto; display:block; border-radius:4px}
+  #preview.smooth{image-rendering:auto}
   .scrub{display:flex; align-items:center; gap:10px}
   .scrub label{font-size:12px; color:var(--muted); min-width:52px}
   .scrub input[type=range]{flex:1; accent-color:var(--accent2)}

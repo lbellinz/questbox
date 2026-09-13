@@ -16,7 +16,7 @@
 - **Full timing control** — pause before each box, reading pause, pause between boxes, final menu duration, blinking "continue" arrow.
 - **10 style presets** (generic names, three free fonts) + full manual styling of colors, border, corner radius, box width and font.
 - **Photo overlay** — drop in your own image and composite the textbox over it (your photo stays in your browser and is **never uploaded**).
-- **Export** — optimized looping **GIF** (delta‑frame encoded) and full‑color **PNG** of any chosen frame.
+- **Export** — optimized looping **GIF** (delta‑frame encoded), full‑color **PNG** of any chosen frame, and **MP4 video** (H.264 via WebCodecs, automatic WebM fallback) with social‑ready framing (9:16 Stories/Reels, 1:1, 4:5, 16:9, or native).
 - **Bilingual UI** — English / Italian, switchable on the fly.
 
 ## 100% client‑side
@@ -39,6 +39,7 @@ Because everything is inlined in one file, it works correctly from a project sub
 
 - Vanilla JavaScript + HTML + CSS + Canvas — no framework, no build step, no ES modules (plain classic scripts, so it runs straight from `file://`).
 - In‑browser GIF encoding via **gifenc** (MIT), delta‑frame optimized (only changed pixels per frame → small files).
+- In‑browser MP4 via **WebCodecs** + **mp4-muxer** (MIT) — no ffmpeg; WebM fallback via `MediaRecorder`.
 - Embedded fonts (base64): **JetBrains Mono**, **VT323**, **Pixelify Sans** — all SIL Open Font License.
 
 ### Project structure
@@ -47,6 +48,7 @@ Because everything is inlined in one file, it works correctly from a project sub
 index.html          markup only
 css/styles.css       styles
 js/vendor/gifenc.js  GIF encoder (window.gifenc)
+js/vendor/mp4-muxer.js  MP4 muxer for WebCodecs (window.Mp4Muxer)
 js/fonts.js          the three fonts as base64 (window.__FONTS__)
 js/app.js            all the application logic
 ```

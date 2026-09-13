@@ -103,6 +103,7 @@
       <div class="body">
         <div class="field"><label for="c-fontfamily" data-i18n="l_font"></label><select id="c-fontfamily"></select></div>
         <div class="field"><label for="c-width" data-i18n="l_width"></label><div class="row"><input type="range" id="c-width" min="240" max="760" step="10"><span class="valout" id="v-width"></span></div></div>
+        <div class="field"><label for="c-boxheight" data-i18n="l_boxheight"></label><div class="row"><input type="range" id="c-boxheight" min="80" max="480" step="5"><span class="valout" id="v-boxheight"></span></div></div>
         <div class="field"><label for="c-fontsize" data-i18n="l_fontsize"></label><div class="row"><input type="range" id="c-fontsize" min="12" max="40" step="1"><span class="valout" id="v-fontsize"></span></div></div>
         <div class="field"><label for="c-radius" data-i18n="l_radius"></label><div class="row"><input type="range" id="c-radius" min="0" max="40" step="1"><span class="valout" id="v-radius"></span></div></div>
         <div class="field"><label for="c-border" data-i18n="l_border"></label><div class="row"><input type="range" id="c-border" min="0" max="10" step="1"><span class="valout" id="v-border"></span></div></div>
@@ -132,9 +133,20 @@
       <button class="btn" id="btn-play"></button>
       <button class="btn primary" id="btn-gif" data-i18n="b_gif"></button>
       <button class="btn" id="btn-png" data-i18n="b_png"></button>
+      <span style="display:inline-flex;align-items:center;gap:6px">
+        <label for="c-vidaspect" style="font-size:12px;color:var(--muted)" data-i18n="l_vidsize"></label>
+        <select id="c-vidaspect" style="width:auto;padding:7px 8px">
+          <option value="native" data-i18n="asp_native"></option>
+          <option value="9:16">9:16 · Stories</option>
+          <option value="1:1">1:1</option>
+          <option value="4:5">4:5</option>
+          <option value="16:9">16:9</option>
+        </select>
+      </span>
+      <button class="btn" id="btn-mp4" data-i18n="b_mp4"></button>
       <div class="progress" id="progress"><i></i></div>
     </div>
-    <div class="result" id="result"><h3 id="result-title"></h3><div class="imgwrap"><img id="result-img" alt="export result"></div><div class="rhint" id="result-hint"></div></div>
+    <div class="result" id="result"><h3 id="result-title"></h3><div class="imgwrap"><img id="result-img" alt="export result"><video id="result-video" controls loop playsinline hidden style="max-width:100%;border-radius:4px"></video></div><div class="rhint" id="result-hint"></div></div>
     <div class="foot" data-i18n="foot" data-i18n-html="1"></div>
     <div class="foot" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px;margin-top:2px">
       <a href="https://buymeacoffee.com/lbellinz" target="_blank" rel="noopener">☕ <span data-i18n="coffee"></span></a>
@@ -147,6 +159,7 @@
 </div>
 
 <script src="js/vendor/gifenc.js"></script>
+<script src="js/vendor/mp4-muxer.js"></script>
 <script src="js/fonts.js"></script>
 <script src="js/app.js"></script>
 </body>
