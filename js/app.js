@@ -72,16 +72,112 @@
       foot:'Preset, più font liberi e overlay su foto — tutto reso dallo <b>stesso motore</b> per anteprima e GIF. '
           +'La tua foto resta nel browser e non viene mai caricata. '
           +'Font <b>JetBrains&nbsp;Mono</b>, <b>VT323</b>, <b>Pixelify&nbsp;Sans</b> (SIL OFL) · encoder <b>gifenc</b> (MIT).'
+    },
+    es:{
+      phase:"· Generador de cuadros de diálogo y GIF estilo RPG", tag_gif:"GIF en el navegador", coffee:"Invítame a un café", oss:"Libre y de código abierto · fuentes SIL OFL · gifenc MIT",
+      font_loading:"cargando fuentes…", font_ready:"fuentes listas ✓", font_fallback:"fuente del sistema (alternativa)",
+      g_preset:"Preajuste de estilo",
+      g_boxes:"Cuadros de diálogo", b_addbox:"+ Añadir cuadro",
+      t_up:"Subir", t_down:"Bajar", t_dup:"Duplicar", t_del:"Eliminar", noname:"(sin nombre)", empty:"(vacío)",
+      g_editbox:"Editar cuadro seleccionado",
+      l_name:"Nombre del personaje", ph_name:"(vacío = sin nombre)",
+      l_text:"Texto (salto de línea = nueva línea)",
+      hint_color:"Para colorear una palabra: selecciónala en el campo de arriba y haz clic en un color. Haz clic en ✕ para quitar el color.",
+      l_menu:"Menú final (flecha de selección ▶)", l_menuopts:"Opciones (una por línea)", l_menusel:"Opción seleccionada",
+      g_bg:"Fondo / Foto", l_bgmode:"Fondo", opt_color:"Color sólido", opt_image:"Foto (superposición)",
+      l_bgimg:"Tu imagen (permanece en tu navegador — nunca se sube)", b_bgremove:"Quitar imagen",
+      l_outw:"Ancho de salida — px", l_boxpos:"Posición del cuadro", pos_bottom:"Abajo", pos_center:"Centro", pos_top:"Arriba",
+      hint_photo:"El cuadro se superpone a tu foto al exportar. Nota: el GIF está limitado a 256 colores, así que con una foto el mejor resultado es exportar en PNG.",
+      g_timing:"Tiempos",
+      l_speed:"Velocidad de escritura — ms por carácter", l_punct:"Pausa tras puntuación (. ! ?) — ms",
+      l_start:"Pausa antes de cada cuadro (vacío) — ms", l_read:"Pausa de lectura tras el texto — ms",
+      l_between:"Pausa entre cuadros — ms", l_menudur:"Duración del menú final — ms",
+      l_arrow:'Flecha "continuar" ▼ parpadeante',
+      g_style:"Estilo del cuadro", l_font:"Fuente", l_width:"Ancho del cuadro — px", l_boxheight:"Alto del cuadro — px", l_fontsize:"Tamaño de fuente — px", l_radius:"Radio de esquinas — px", l_border:"Grosor del borde — px",
+      g_colors:"Colores", c_backdrop:"Fondo", c_box:"Cuadro", c_border:"Borde", c_text:"Texto", c_name:"Nombre", c_arrow:"Flecha cont.", c_select:"Flecha menú",
+      l_frame:"Fotograma", b_play:"▶ Reproducir", b_pause:"⏸ Pausa",
+      b_gif:"⬇ Exportar GIF", b_gif_busy:"Generando…", b_png:"⬇ Exportar PNG (fotograma)",
+      b_mp4:"⬇ Exportar MP4", b_vid_busy:"Codificando…", l_vidsize:"Vídeo:", asp_native:"Nativo",
+      r_gif_ok:"GIF generado ✓", r_png_ok:"PNG generado ✓", r_mp4_ok:"MP4 generado ✓", r_webm_ok:"WebM generado ✓ (este navegador no puede crear MP4)", r_vid_hint:"{w}×{h} · {s}s · se repite en bucle en las Stories.", r_err:"Error de exportación",
+      r_gif_hint:'Si la descarga no empieza, haz clic derecho en la imagen → "Guardar imagen". {n} fotogramas · {kb} KB',
+      r_png_hint:"Fotograma actual (color completo). {w}×{h} px.",
+      foot:'Preajustes, varias fuentes libres y superposición de fotos — todo renderizado por el <b>mismo motor</b> para la vista previa y el GIF. '
+          +'La foto permanece en tu navegador y nunca se sube. '
+          +'Fuentes <b>JetBrains&nbsp;Mono</b>, <b>VT323</b>, <b>Pixelify&nbsp;Sans</b> (SIL OFL) · codificador <b>gifenc</b> (MIT).'
+    },
+    fr:{
+      phase:"· Générateur de boîtes de dialogue et GIF façon RPG", tag_gif:"GIF dans le navigateur", coffee:"Offrez-moi un café", oss:"Libre et open source · polices SIL OFL · gifenc MIT",
+      font_loading:"chargement des polices…", font_ready:"polices prêtes ✓", font_fallback:"police système (repli)",
+      g_preset:"Préréglage de style",
+      g_boxes:"Boîtes de dialogue", b_addbox:"+ Ajouter une boîte",
+      t_up:"Monter", t_down:"Descendre", t_dup:"Dupliquer", t_del:"Supprimer", noname:"(sans nom)", empty:"(vide)",
+      g_editbox:"Modifier la boîte sélectionnée",
+      l_name:"Nom du personnage", ph_name:"(vide = pas de nom)",
+      l_text:"Texte (retour à la ligne = nouvelle ligne)",
+      hint_color:"Pour colorer un mot : sélectionnez-le dans le champ ci-dessus, puis cliquez sur une couleur. Cliquez sur ✕ pour retirer la couleur.",
+      l_menu:"Menu final (flèche de sélection ▶)", l_menuopts:"Options (une par ligne)", l_menusel:"Option sélectionnée",
+      g_bg:"Fond / Photo", l_bgmode:"Fond", opt_color:"Couleur unie", opt_image:"Photo (superposition)",
+      l_bgimg:"Votre image (reste dans votre navigateur — jamais envoyée)", b_bgremove:"Retirer l'image",
+      l_outw:"Largeur de sortie — px", l_boxpos:"Position de la boîte", pos_bottom:"Bas", pos_center:"Centre", pos_top:"Haut",
+      hint_photo:"La boîte est superposée à votre photo à l'export. Remarque : le GIF est limité à 256 couleurs ; pour une photo, préférez l'export PNG.",
+      g_timing:"Minutage",
+      l_speed:"Vitesse de frappe — ms par caractère", l_punct:"Pause après la ponctuation (. ! ?) — ms",
+      l_start:"Pause avant chaque boîte (vide) — ms", l_read:"Pause de lecture après le texte — ms",
+      l_between:"Pause entre les boîtes — ms", l_menudur:"Durée du menu final — ms",
+      l_arrow:"Flèche « continuer » ▼ clignotante",
+      g_style:"Style de la boîte", l_font:"Police", l_width:"Largeur de la boîte — px", l_boxheight:"Hauteur de la boîte — px", l_fontsize:"Taille de police — px", l_radius:"Rayon des coins — px", l_border:"Épaisseur du bord — px",
+      g_colors:"Couleurs", c_backdrop:"Fond", c_box:"Boîte", c_border:"Bord", c_text:"Texte", c_name:"Nom", c_arrow:"Flèche cont.", c_select:"Flèche menu",
+      l_frame:"Image", b_play:"▶ Lecture", b_pause:"⏸ Pause",
+      b_gif:"⬇ Exporter GIF", b_gif_busy:"Génération…", b_png:"⬇ Exporter PNG (image)",
+      b_mp4:"⬇ Exporter MP4", b_vid_busy:"Encodage…", l_vidsize:"Vidéo :", asp_native:"Natif",
+      r_gif_ok:"GIF généré ✓", r_png_ok:"PNG généré ✓", r_mp4_ok:"MP4 généré ✓", r_webm_ok:"WebM généré ✓ (ce navigateur ne peut pas créer de MP4)", r_vid_hint:"{w}×{h} · {s}s · boucle automatiquement dans les Stories.", r_err:"Erreur d'export",
+      r_gif_hint:"Si le téléchargement ne démarre pas, clic droit sur l'image → « Enregistrer l'image ». {n} images · {kb} Ko",
+      r_png_hint:"Image actuelle (couleur complète). {w}×{h} px.",
+      foot:"Préréglages, plusieurs polices libres et superposition de photo — le tout rendu par le <b>même moteur</b> pour l'aperçu et le GIF. "
+          +"Votre photo reste dans votre navigateur et n'est jamais envoyée. "
+          +"Polices <b>JetBrains&nbsp;Mono</b>, <b>VT323</b>, <b>Pixelify&nbsp;Sans</b> (SIL OFL) · encodeur <b>gifenc</b> (MIT)."
+    },
+    de:{
+      phase:"· Retro-RPG-Textbox- & GIF-Generator", tag_gif:"GIF im Browser", coffee:"Spendier mir einen Kaffee", oss:"Frei & quelloffen · Schriften SIL OFL · gifenc MIT",
+      font_loading:"Schriften werden geladen…", font_ready:"Schriften bereit ✓", font_fallback:"Systemschrift (Ausweich)",
+      g_preset:"Stil-Voreinstellung",
+      g_boxes:"Dialogboxen", b_addbox:"+ Box hinzufügen",
+      t_up:"Nach oben", t_down:"Nach unten", t_dup:"Duplizieren", t_del:"Löschen", noname:"(kein Name)", empty:"(leer)",
+      g_editbox:"Ausgewählte Box bearbeiten",
+      l_name:"Figurenname", ph_name:"(leer = kein Name)",
+      l_text:"Text (Zeilenumbruch = neue Zeile)",
+      hint_color:"Wort einfärben: im Feld oben markieren, dann auf eine Farbe klicken. Zum Entfernen auf ✕ klicken.",
+      l_menu:"Endmenü (Auswahlpfeil ▶)", l_menuopts:"Optionen (eine pro Zeile)", l_menusel:"Ausgewählte Option",
+      g_bg:"Hintergrund / Foto", l_bgmode:"Hintergrund", opt_color:"Volltonfarbe", opt_image:"Foto (Overlay)",
+      l_bgimg:"Dein Bild (bleibt im Browser — wird nie hochgeladen)", b_bgremove:"Bild entfernen",
+      l_outw:"Ausgabebreite — px", l_boxpos:"Box-Position", pos_bottom:"Unten", pos_center:"Mitte", pos_top:"Oben",
+      hint_photo:"Beim Export wird die Textbox über dein Foto gelegt. Hinweis: GIF ist auf 256 Farben begrenzt — für Fotos ist der PNG-Export am besten.",
+      g_timing:"Timing",
+      l_speed:"Tippgeschwindigkeit — ms pro Zeichen", l_punct:"Pause nach Satzzeichen (. ! ?) — ms",
+      l_start:"Pause vor jeder Box (leer) — ms", l_read:"Lesepause nach dem Text — ms",
+      l_between:"Pause zwischen den Boxen — ms", l_menudur:"Dauer des Endmenüs — ms",
+      l_arrow:'Blinkender „Weiter“-Pfeil ▼',
+      g_style:"Box-Stil", l_font:"Schrift", l_width:"Box-Breite — px", l_boxheight:"Box-Höhe — px", l_fontsize:"Schriftgröße — px", l_radius:"Eckenradius — px", l_border:"Randstärke — px",
+      g_colors:"Farben", c_backdrop:"Hintergrund", c_box:"Box", c_border:"Rand", c_text:"Text", c_name:"Name", c_arrow:"Weiter-Pfeil", c_select:"Menüpfeil",
+      l_frame:"Bild", b_play:"▶ Abspielen", b_pause:"⏸ Pause",
+      b_gif:"⬇ GIF exportieren", b_gif_busy:"Wird erstellt…", b_png:"⬇ PNG exportieren (Bild)",
+      b_mp4:"⬇ MP4 exportieren", b_vid_busy:"Kodierung…", l_vidsize:"Video:", asp_native:"Nativ",
+      r_gif_ok:"GIF erstellt ✓", r_png_ok:"PNG erstellt ✓", r_mp4_ok:"MP4 erstellt ✓", r_webm_ok:"WebM erstellt ✓ (dieser Browser kann kein MP4 erstellen)", r_vid_hint:"{w}×{h} · {s}s · läuft in Stories automatisch in Schleife.", r_err:"Exportfehler",
+      r_gif_hint:'Falls der Download nicht startet, Rechtsklick auf das Bild → „Bild speichern“. {n} Bilder · {kb} KB',
+      r_png_hint:"Aktuelles Bild (volle Farbe). {w}×{h} px.",
+      foot:"Voreinstellungen, mehrere freie Schriften und Foto-Overlay — alles von <b>derselben Engine</b> für Vorschau und GIF gerendert. "
+          +"Dein Foto bleibt im Browser und wird nie hochgeladen. "
+          +"Schriften <b>JetBrains&nbsp;Mono</b>, <b>VT323</b>, <b>Pixelify&nbsp;Sans</b> (SIL OFL) · Encoder <b>gifenc</b> (MIT)."
     }
   };
   var lang="en", fontStatusKey="font_loading";
+  var LANGS=[['en','EN'],['it','IT'],['es','ES'],['fr','FR'],['de','DE']];
   function t(key,vars){ var s=(I18N[lang]&&I18N[lang][key])||I18N.en[key]||key; if(vars) for(var k in vars) s=s.replace('{'+k+'}',vars[k]); return s; }
   function applyI18n(){
     document.documentElement.lang=lang;
     document.querySelectorAll('[data-i18n]').forEach(function(el){ var k=el.getAttribute('data-i18n'); if(el.getAttribute('data-i18n-html')) el.innerHTML=t(k); else el.textContent=t(k); });
     document.querySelectorAll('[data-i18n-ph]').forEach(function(el){ el.placeholder=t(el.getAttribute('data-i18n-ph')); });
-    document.getElementById('lang-en').classList.toggle('active',lang==='en');
-    document.getElementById('lang-it').classList.toggle('active',lang==='it');
+    var lsw=document.getElementById('langsw'); if(lsw) lsw.querySelectorAll('button').forEach(function(bt){ bt.classList.toggle('active', bt.getAttribute('data-lang')===lang); });
     document.getElementById('fontstatus').textContent=t(fontStatusKey);
     updatePlayBtn(); renderBoxList(); loadBoxEditor(); renderPresets();
   }
@@ -433,8 +529,8 @@
     document.getElementById('btn-mp4').addEventListener('click',exportVideo);
     var vasp=document.getElementById('c-vidaspect'); vasp.value=project.video.aspect; vasp.addEventListener('change',function(){ project.video.aspect=vasp.value; });
     scrubEl.addEventListener('input',function(){ setPaused(true); pvIdx=parseInt(scrubEl.value,10)||0; drawIdx(pvIdx); });
-    document.getElementById('lang-en').addEventListener('click',function(){ lang='en'; applyI18n(); });
-    document.getElementById('lang-it').addEventListener('click',function(){ lang='it'; applyI18n(); });
+    var lsw=document.getElementById('langsw'); lsw.innerHTML='';
+    LANGS.forEach(function(L){ var btn=document.createElement('button'); btn.textContent=L[1]; btn.setAttribute('data-lang',L[0]); btn.addEventListener('click',function(){ lang=L[0]; applyI18n(); }); lsw.appendChild(btn); });
     window.addEventListener('resize',function(){ if(GL) resizePreview(); });
   }
 

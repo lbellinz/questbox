@@ -17,7 +17,7 @@
 - **10 style presets** (generic names, three free fonts) + full manual styling of colors, border, corner radius, box width and font.
 - **Photo overlay** — drop in your own image and composite the textbox over it (your photo stays in your browser and is **never uploaded**).
 - **Export** — optimized looping **GIF** (delta‑frame encoded), full‑color **PNG** of any chosen frame, and **MP4 video** (H.264 via WebCodecs, automatic WebM fallback) with social‑ready framing (9:16 Stories/Reels, 1:1, 4:5, 16:9, or native).
-- **Bilingual UI** — English / Italian, switchable on the fly.
+- **Multilingual UI** — English, Italian, Spanish, French, German, switchable on the fly.
 
 ## 100% client‑side
 
