@@ -255,7 +255,7 @@
       var hasMenu=!!(b.menu&&b.menu.options&&b.menu.options.length);
       var menuGap=hasMenu?Math.round(st.fontSize*0.55):0, menuRows=hasMenu?b.menu.options.length:0;
       var contentH=nameRowH+Math.max(1,lines.length)*lineHeight+(hasMenu?(menuGap+menuRows*lineHeight):0);
-      boxesL.push({hasName:hasName,nameRowH:nameRowH,lines:lines,flat:flat,total:flat.length,hasMenu:hasMenu,menuGap:menuGap,menuRows:menuRows});
+      boxesL.push({hasName:hasName,nameRowH:nameRowH,lines:lines,flat:flat,total:flat.length,textLines:(flat.length?lines.length:0),hasMenu:hasMenu,menuGap:menuGap,menuRows:menuRows});
       if(contentH>maxContentH) maxContentH=contentH;
     }
     var boxH=st.boxHeight; // fixed height — independent of font size / content (font has its own control)
@@ -300,7 +300,7 @@
     ctx.font=fontString(st.fontSize,st.fontFamily,GL.bodyWeight); ctx.textBaseline='top';
     var remaining=visible;
     for(var k=0;k<B.lines.length;k++){ var ly=textTop+k*GL.lineHeight, ln=B.lines[k]; for(var c=0;c<ln.length;c++){ if(remaining<=0) break; ctx.fillStyle=ln[c].color; ctx.fillText(ln[c].ch,textLeft+ln[c].x,ly); remaining--; } if(remaining<=0) break; }
-    if(opts.menuShow&&B.hasMenu){ var menuTop=textTop+B.lines.length*GL.lineHeight+B.menuGap; var aw=Math.round(st.fontSize*0.6);
+    if(opts.menuShow&&B.hasMenu){ var menuTop=textTop+B.textLines*GL.lineHeight+B.menuGap; var aw=Math.round(st.fontSize*0.6);
       for(var m=0;m<b.menu.options.length;m++){ var oy=menuTop+m*GL.lineHeight;
         if(m===b.menu.selected&&opts.arrowOn) drawRight(ctx,textLeft,oy+Math.round(st.fontSize*0.12),Math.round(st.fontSize*0.72),cl.selectColor);
         ctx.font=fontString(st.fontSize,st.fontFamily,GL.bodyWeight); ctx.textBaseline='top'; ctx.fillStyle=cl.textColor; ctx.fillText(b.menu.options[m],textLeft+aw+8,oy);
